@@ -3,7 +3,8 @@ env:
   base_project_dir: ${hydra:runtime.cwd}
   before_train_commands: []
   torch_extensions_dir: "/tmp/torch_extensions"
-  datasets_dir: "/data"
+  # datasets_dir: "/data" # CHANGED
+  datasets_dir: "/scratch/shared/beegfs/piyush/datasets/"
   objects_to_copy:
     - ${env.base_project_dir}/src
     - ${env.base_project_dir}/configs
@@ -15,7 +16,8 @@ env:
 num_gpus: 8
 dataset:
   source_path: ${env.datasets_dir}/${dataset.name}
-  target_path: /data/${dataset.name}
+  # target_path: /data/${dataset.name} # CHANGED
+  target_path: /work/piyush/experiments/digan/example-training-pouring/data/${dataset.name}
 print_only: false
 
 project_release_dir:

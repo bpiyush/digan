@@ -13,11 +13,11 @@ env:
   symlinks_to_create:
     - ${env.base_project_dir}/data
 
-num_gpus: 8
+num_gpus: 4
 dataset:
-  source_path: ${env.datasets_dir}/${dataset.name}
-  # target_path: /data/${dataset.name} # CHANGED
-  target_path: /work/piyush/experiments/digan/example-training-pouring/data/${dataset.name}
+  source_path: ${env.datasets_dir}/${dataset.name}/resized_data_cut_clips_frames_organized/
+  target_path: ${env.datasets_dir}/${dataset.name}/resized_data_cut_clips_frames_organized/ # CHANGED
+  # target_path: /work/piyush/experiments/digan/example-training-pouring/data/${dataset.name}
 print_only: false
 
 project_release_dir:
@@ -29,7 +29,8 @@ train_args:
   outdir: ${project_release_dir}
   data: ${dataset.target_path}
   gpus: ${num_gpus}
-  cfg: auto
+  # cfg: auto # CHANGED
+  cfg: pouring
   snap: 100
   diffaugment: color,translation
   cond: false

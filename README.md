@@ -33,6 +33,13 @@ pip install click gitpython requests psutil einops tensorboardX
 pip install torchsde==0.2.6 ipdb ninja
 ```
 
+This torch version creates issues. Trying alternatives:
+```sh
+# NOTE: cuda 11.7 is present on vggdev21 machine: so using cu117
+pip install torch==1.13.1+cu117 torchvision==0.14.1+cu117 torchaudio==0.13.1 --extra-index-url https://download.pytorch.org/whl/cu117
+```
+
+
 ### 2. Dataset 
 One should organize the video dataset as follows:
 

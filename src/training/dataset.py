@@ -551,6 +551,8 @@ class ImageFolderDataset(Dataset):
             else:
                 split = 'test'
             imgs = make_imageclip_dataset(path, nframes, class_to_idx, False, split)
+        elif "PouringIROS2019" in path:
+            imgs = make_imageclip_dataset(path, nframes, class_to_idx, False, split=None)
         else:
             imgs = make_imageclip_dataset(path, nframes, class_to_idx, False)
 
@@ -580,6 +582,9 @@ class ImageFolderDataset(Dataset):
             else:
                 dir_path = os.path.join(self._path, 'val')
         
+        if 'PouringIROS2019' in self._path:
+            dir_path = self._path
+        
         if os.path.isdir(self._path):
             self._type = 'dir'
             self._all_fnames = {os.path.relpath(os.path.join(root, fname), start=dir_path) for root, _dirs, files in os.walk(dir_path) for fname in files}        
@@ -590,7 +595,7 @@ class ImageFolderDataset(Dataset):
             raise IOError('Path must point to a directory or zip')
 
         PIL.Image.init()
-        self._image_fnames = sorted(fname for fname in self._all_fnames if self._file_ext(fname) in PIL.Image.EXTENSION)
+        self._image_fnames = sorted(fname for fname in self._all_fnames if self._file_ext(fname=fname) in PIL.Image.EXTENSION)
         if len(self._image_fnames) == 0:
             raise IOError('No image files found in the specified path')
 
@@ -601,7 +606,7 @@ class ImageFolderDataset(Dataset):
         #     raise IOError('Image files do not match the specified resolution')
         super().__init__(name=name, raw_shape=self._raw_shape, **super_kwargs)
 
-    @staticmethod
+    # @staticmethod
     def _file_ext(self, fname):
         return os.path.splitext(fname)[1].lower()
 

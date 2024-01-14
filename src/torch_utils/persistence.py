@@ -223,7 +223,13 @@ def _src_to_module(src):
         sys.modules[module_name] = module
         _module_to_src_dict[module] = src
         _src_to_module_dict[src] = module
-        exec(src, module.__dict__) # pylint: disable=exec-used
+        try:
+            exec(src, module.__dict__) # pylint: disable=exec-used
+        except:
+            print("Running src with a HACK: replacing np.float with np.float32")
+            if "np.float(" in src:
+                src = src.replace("np.float(", "np.float32(")
+                exec(src, module.__dict__)
     return module
 
 #----------------------------------------------------------------------------

@@ -22,6 +22,12 @@ def save_image_grid(img, fname, drange, grid_size, normalize=True):
     assert C in [3]
 
     if C == 3:
-        torchvision.io.write_video(f'{fname[:-3]}mp4', torch.from_numpy(img), fps=8)
+        video_path = f'{fname[:-3]}mp4'
+        print("Saving video to ", video_path)
+        try:
+            torchvision.io.write_video(video_path, torch.from_numpy(img), fps=8, video_codec='libx264')
+        except:
+            print("Failed to save video with libx264, trying h264")
+            torchvision.io.write_video(video_path, torch.from_numpy(img), fps=8, video_codec='h264')
         imgs = [PIL.Image.fromarray(img[i], 'RGB') for i in range(len(img))]
         imgs[0].save(fname, quality=95, save_all=True, append_images=imgs[1:], duration=100, loop=0)

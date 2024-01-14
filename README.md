@@ -29,6 +29,8 @@ pip install torch==1.8.0+cu111 torchvision==0.9.0+cu111 -f https://download.pyto
 pip install hydra-core==1.0.6
 pip install tqdm scipy scikit-learn av ninja
 pip install click gitpython requests psutil einops tensorboardX
+# Added
+pip install torchsde==0.2.6 ipdb ninja
 ```
 
 ### 2. Dataset 
@@ -91,6 +93,13 @@ python src/scripts/compute_fvd_kvd.py --network_pkl <MODEL_PATH> --data_path <DA
 Genrate and visualize videos (as gif and mp4):
 ```
 python src/scripts/generate_videos.py --network_pkl <MODEL_PATH> --outdir <OUTPUT_PATH>
+```
+
+**Local example:** Ran on UCF-101 dataset.
+```sh
+MODEL_PATH=/work/piyush/pretrained_checkpoints/UCF101/digan-pretrained-ucf-101-only-train.pkl
+OUTPUT_PATH=/work/piyush/experiments/digan/example-generation-ucf101/
+python src/scripts/generate_videos.py --network_pkl $MODEL_PATH --outdir $OUTPUT_PATH
 ```
 
 ### 6. Results
